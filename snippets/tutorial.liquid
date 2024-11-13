@@ -1,2 +1,26 @@
-{% assign myName = "Mai Tuuan Vu" %}
-{{ myName }}
+{% for product in collection.products limit: 5 %}
+  <p
+    style="
+      {% if forloop.first %}
+       color: red
+       {% elsif forloop.last%}
+        color: blue
+      {% endif %}
+    "
+  >
+    {{ forloop.index }} - {{ product.title }}
+  </p>
+  {% if product.tags.size > 0 %}
+    <h3>Tag</h3>
+    <ul>
+      {% for tag in product.tags %}
+        <li>Product Index: {{ forloop.index }} | {{ tag }}</li>
+        {% if tag == 'mens hat example' %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% else %}
+  <p>This collection has no product</p>
+{% endfor %}
